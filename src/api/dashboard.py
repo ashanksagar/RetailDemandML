@@ -192,7 +192,7 @@ def dashboard() -> HTMLResponse:
     comparison = payload["model_comparison"]
     backtest = payload["backtest"]
     importance = payload["feature_importance"]
-    generated = date.today().isoformat()
+    last_refreshed = date.today().isoformat()
     html_body = f"""
 <!doctype html>
 <html lang="en">
@@ -235,7 +235,7 @@ def dashboard() -> HTMLResponse:
   <header>
     <div>
       <h1>RetailDemandML Operations</h1>
-      <div class="muted">Internal model monitoring and forecast diagnostics. Generated {generated}.</div>
+      <div class="muted">Internal model monitoring and forecast diagnostics. Last refreshed {last_refreshed}.</div>
     </div>
     <div><span class="badge">active: {html.escape(str(active.get("name", "unregistered")))}</span></div>
   </header>

@@ -5,9 +5,9 @@ Likely sample data: `False`
 
 ## Checks
 
-- PASS `kaggle_cli`: C:\Users\dogem\AppData\Local\Programs\Python\Python313\Scripts\kaggle.EXE
+- PASS `kaggle_cli`: Kaggle CLI is available on PATH.
 - PASS `kaggle_credentials`: Credential source(s) present: access_token.
-- PASS `train_csv_present`: Found C:\Users\dogem\RetailDemandML\data\raw\train.csv.
+- PASS `train_csv_present`: Found data/raw/train.csv.
 - PASS `required_columns`: All required columns present.
 - PASS `real_dataset_row_count`: Rows=913,000; expected at least 900,000 for Kaggle train.csv.
 - PASS `store_count`: Stores=10; expected 10.

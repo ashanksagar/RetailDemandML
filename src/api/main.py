@@ -15,7 +15,7 @@ from src.models.registry import active_production_metadata
 app = FastAPI(
     title="RetailDemandML Forecasting API",
     version="0.2.0",
-    summary="Production-style retail demand forecasting service.",
+    summary="Daily store/item demand forecasting service.",
     description=(
         "RetailDemandML serves daily store/item demand forecasts from a promoted model registry "
         "artifact. The business endpoint accepts store, item, and forecast date, then materializes "

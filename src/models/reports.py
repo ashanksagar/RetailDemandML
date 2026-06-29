@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -7,11 +8,30 @@ from src.config import (
     DATE_COLUMN,
     MODEL_CARD_PATH,
     MODEL_COMPARISON_PATH,
+    PROJECT_ROOT,
     PROMOTIONS_PATH,
     REGISTRY_PATH,
     TARGET,
     ensure_directories,
 )
+
+
+def _repo_relative_string(value: str) -> str:
+    project_root = str(PROJECT_ROOT)
+    if project_root in value:
+        path = Path(value)
+        return path.relative_to(PROJECT_ROOT).as_posix()
+    return value
+
+
+def _sanitize_paths(value: object) -> object:
+    if isinstance(value, dict):
+        return {key: _sanitize_paths(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_sanitize_paths(item) for item in value]
+    if isinstance(value, str):
+        return _repo_relative_string(value)
+    return value
 
 
 def write_model_card(
@@ -41,13 +61,15 @@ def write_model_card(
 
     registry_summary = "No model has been registered yet."
     if REGISTRY_PATH.exists():
-        registry_summary = "```json\n" + REGISTRY_PATH.read_text(encoding="utf-8") + "\n```"
+        registry_payload = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+        registry_summary = "```json\n" + json.dumps(_sanitize_paths(registry_payload), indent=2) + "\n```"
 
     promotion_summary = "No promotion decisions have been recorded yet."
     if PROMOTIONS_PATH.exists():
         decisions = PROMOTIONS_PATH.read_text(encoding="utf-8").strip().splitlines()
         if decisions:
             promotion_summary = "```json\n" + decisions[-1] + "\n```"
+    metrics_json = json.dumps(metrics, indent=2, sort_keys=True)
 
     text = f"""# RetailDemandML Model Card
 
@@ -72,7 +94,7 @@ Best current production candidate: `{best_model}`.
 ## Test Metrics
 
 ```json
-{metrics}
+{metrics_json}
 ```
 
 ## Model Comparison

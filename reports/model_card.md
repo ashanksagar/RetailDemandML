@@ -21,7 +21,29 @@ Best current production candidate: `hist_gradient_boosting`.
 ## Test Metrics
 
 ```json
-{'baseline_test': {'mae': 10.072503384078884, 'rmse': 13.338401634591396, 'mape': 0.20799769051654488, 'smape': 0.19647701086971558}, 'xgboost_validation': {'mae': 6.566386461957296, 'rmse': 8.517973043957063, 'mape': 0.11490427538838206, 'smape': 0.11144469820108871}, 'production_test': {'mae': 5.9484640253177465, 'rmse': 7.7146247090118285, 'mape': 0.13039537756492023, 'smape': 0.125311059240068}, 'selected_model': {'name': 'hist_gradient_boosting'}}
+{
+  "baseline_test": {
+    "mae": 10.072503384078884,
+    "mape": 0.20799769051654488,
+    "rmse": 13.338401634591396,
+    "smape": 0.19647701086971558
+  },
+  "production_test": {
+    "mae": 5.9484640253177465,
+    "mape": 0.13039537756492023,
+    "rmse": 7.7146247090118285,
+    "smape": 0.125311059240068
+  },
+  "selected_model": {
+    "name": "hist_gradient_boosting"
+  },
+  "xgboost_validation": {
+    "mae": 6.566386461957296,
+    "mape": 0.11490427538838206,
+    "rmse": 8.517973043957063,
+    "smape": 0.11144469820108871
+  }
+}
 ```
 
 ## Model Comparison
@@ -53,7 +75,7 @@ xgboost     3 2017-11-05 2017-11-06 2017-12-03 8.416166 0.122044
     {
       "version": 1,
       "name": "ridge",
-      "artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\production_model.joblib",
+      "artifact_path": "models/production_model.joblib",
       "registered_at_utc": "2026-06-28T02:19:37.741779+00:00",
       "metrics": {
         "mae": 4.070067457411941,
@@ -80,12 +102,12 @@ xgboost     3 2017-11-05 2017-11-06 2017-12-03 8.416166 0.122044
         "max": "2022-12-31"
       },
       "status": "archived",
-      "production_artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\registry\\production\\production_model.joblib"
+      "production_artifact_path": "models/registry/production/production_model.joblib"
     },
     {
       "version": 2,
       "name": "ridge",
-      "artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\production_model.joblib",
+      "artifact_path": "models/production_model.joblib",
       "registered_at_utc": "2026-06-28T02:21:57.777154+00:00",
       "metrics": {
         "mae": 4.070067457411941,
@@ -111,13 +133,13 @@ xgboost     3 2017-11-05 2017-11-06 2017-12-03 8.416166 0.122044
         "min": "2021-01-01",
         "max": "2022-12-31"
       },
-      "status": "production",
-      "production_artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\registry\\production\\production_model.joblib"
+      "status": "archived",
+      "production_artifact_path": "models/registry/production/production_model.joblib"
     },
     {
       "version": 3,
       "name": "ridge",
-      "artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\production_model.joblib",
+      "artifact_path": "models/production_model.joblib",
       "registered_at_utc": "2026-06-28T02:28:10.308789+00:00",
       "metrics": {
         "mae": 4.070067457411941,
@@ -148,7 +170,7 @@ xgboost     3 2017-11-05 2017-11-06 2017-12-03 8.416166 0.122044
     {
       "version": 4,
       "name": "ridge",
-      "artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\production_model.joblib",
+      "artifact_path": "models/production_model.joblib",
       "registered_at_utc": "2026-06-28T03:24:07.429848+00:00",
       "metrics": {
         "mae": 4.070067457411941,
@@ -179,7 +201,7 @@ xgboost     3 2017-11-05 2017-11-06 2017-12-03 8.416166 0.122044
     {
       "version": 5,
       "name": "hist_gradient_boosting",
-      "artifact_path": "C:\\Users\\dogem\\RetailDemandML\\models\\production_model.joblib",
+      "artifact_path": "models/production_model.joblib",
       "registered_at_utc": "2026-06-29T05:11:24.505370+00:00",
       "metrics": {
         "mae": 5.9484640253177465,
@@ -205,17 +227,18 @@ xgboost     3 2017-11-05 2017-11-06 2017-12-03 8.416166 0.122044
         "min": "2013-01-01",
         "max": "2017-12-31"
       },
-      "status": "candidate"
+      "status": "production",
+      "production_artifact_path": "models/registry/production/production_model.joblib"
     }
   ],
-  "production_version": 2
+  "production_version": 5
 }
 ```
 
 ## Latest Promotion Decision
 
 ```json
-{"candidate_version": 5, "previous_production_version": 2, "promoted": false, "reason": "rmse improvement -50.50% below threshold 0.00%", "decided_at_utc": "2026-06-29T05:11:24.517672+00:00"}
+{"candidate_version": 5, "previous_production_version": 2, "promoted": true, "reason": "candidate was trained on a new verified dataset version", "decided_at_utc": "2026-06-29T05:59:39.280833+00:00"}
 ```
 
 ## Leakage Controls

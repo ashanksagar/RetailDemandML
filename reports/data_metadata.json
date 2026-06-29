@@ -1,6 +1,6 @@
 {
   "source": "kaggle_store_item_demand_or_local_sample",
-  "path": "C:\\Users\\dogem\\RetailDemandML\\data\\raw\\train.csv",
+  "path": "data/raw/train.csv",
   "sha256": "038f25690a65149c94f86ddd3deceda20c037a5cfd754cafdfc539a72992f2ed",
   "rows": 913000,
   "columns": [
@@ -17,6 +17,6 @@
   "item_count": 50,
   "target_min": 0.0,
   "target_max": 231.0,
-  "created_at_utc": "2026-06-29T04:58:15.442848+00:00",
+  "created_at_utc": "2026-06-29T06:51:21.813847+00:00",
   "test_file_present": true
 }

@@ -2,12 +2,12 @@
 
 ## Dataset Summary
 
-- Rows: 35,040
-- Date range: 2021-01-01 to 2022-12-31
-- Stores: 4
-- Items: 12
-- Mean sales: 71.35
-- Median sales: 71.00
+- Rows: 913,000
+- Date range: 2013-01-01 to 2017-12-31
+- Stores: 10
+- Items: 50
+- Mean sales: 52.25
+- Median sales: 47.00
 - Zero-sales rate: 0.00%
 - Duplicate date/store/item keys: 0
 - Missing values: 0
@@ -22,13 +22,13 @@
 
 ## Generated Figures
 
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_total_daily_sales.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_sales_by_day_of_week.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_sales_by_month.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_top_items.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_store_comparison.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_store_item_heatmap.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_example_series.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_lag_correlations.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/eda_split_timeline.png`
-- `C:/Users/dogem/RetailDemandML/reports/figures/model_comparison_rmse.png`
+- `reports/figures/eda_total_daily_sales.png`
+- `reports/figures/eda_sales_by_day_of_week.png`
+- `reports/figures/eda_sales_by_month.png`
+- `reports/figures/eda_top_items.png`
+- `reports/figures/eda_store_comparison.png`
+- `reports/figures/eda_store_item_heatmap.png`
+- `reports/figures/eda_example_series.png`
+- `reports/figures/eda_lag_correlations.png`
+- `reports/figures/eda_split_timeline.png`
+- `reports/figures/model_comparison_rmse.png`

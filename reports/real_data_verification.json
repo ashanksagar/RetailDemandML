@@ -3,7 +3,7 @@
   "passed": true,
   "likely_sample_data": false,
   "metadata": {
-    "path": "C:\\Users\\dogem\\RetailDemandML\\data\\raw\\train.csv",
+    "path": "data/raw/train.csv",
     "sha256": "038f25690a65149c94f86ddd3deceda20c037a5cfd754cafdfc539a72992f2ed",
     "rows": 913000,
     "columns": [
@@ -17,7 +17,7 @@
     {
       "name": "kaggle_cli",
       "passed": true,
-      "detail": "C:\\Users\\dogem\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\kaggle.EXE"
+      "detail": "Kaggle CLI is available on PATH."
     },
     {
       "name": "kaggle_credentials",
@@ -27,7 +27,7 @@
     {
       "name": "train_csv_present",
       "passed": true,
-      "detail": "Found C:\\Users\\dogem\\RetailDemandML\\data\\raw\\train.csv."
+      "detail": "Found data/raw/train.csv."
     },
     {
       "name": "required_columns",

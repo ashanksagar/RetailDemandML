@@ -9,6 +9,7 @@ import pandas as pd
 from src.config import (
     DATE_COLUMN,
     GROUP_COLUMNS,
+    PROJECT_ROOT,
     RAW_TRAIN_PATH,
     REAL_DATA_VERIFICATION_MARKDOWN_PATH,
     REAL_DATA_VERIFICATION_PATH,
@@ -29,6 +30,10 @@ class CheckResult:
     name: str
     passed: bool
     detail: str
+
+
+def _report_path(path: Path) -> str:
+    return path.relative_to(PROJECT_ROOT).as_posix() if path.is_relative_to(PROJECT_ROOT) else path.name
 
 
 def kaggle_credentials_path() -> Path:
@@ -54,12 +59,16 @@ def _credential_sources() -> list[tuple[str, bool, str]]:
         (
             "access_token",
             access_token.exists(),
-            str(access_token) if access_token.exists() else f"Missing {access_token}.",
+            "Kaggle access_token file is present."
+            if access_token.exists()
+            else "Kaggle access_token file is not present.",
         ),
         (
             "kaggle_json",
             kaggle_json.exists(),
-            str(kaggle_json) if kaggle_json.exists() else f"Missing {kaggle_json}.",
+            "Kaggle kaggle.json file is present."
+            if kaggle_json.exists()
+            else "Kaggle kaggle.json file is not present.",
         ),
     ]
 
@@ -69,7 +78,7 @@ def _check_cli() -> CheckResult:
     return CheckResult(
         name="kaggle_cli",
         passed=path is not None,
-        detail=path or "Kaggle CLI is not installed or not on PATH.",
+        detail="Kaggle CLI is available on PATH." if path else "Kaggle CLI is not installed or not on PATH.",
     )
 
 
@@ -88,10 +97,10 @@ def _check_credentials() -> CheckResult:
 
 def _load_train() -> tuple[pd.DataFrame | None, CheckResult]:
     if not RAW_TRAIN_PATH.exists():
-        return None, CheckResult("train_csv_present", False, f"Missing {RAW_TRAIN_PATH}.")
+        return None, CheckResult("train_csv_present", False, f"Missing {_report_path(RAW_TRAIN_PATH)}.")
     try:
         return pd.read_csv(RAW_TRAIN_PATH), CheckResult(
-            "train_csv_present", True, f"Found {RAW_TRAIN_PATH}."
+            "train_csv_present", True, f"Found {_report_path(RAW_TRAIN_PATH)}."
         )
     except Exception as exc:
         return None, CheckResult("train_csv_readable", False, str(exc))
@@ -159,7 +168,7 @@ def verification_payload() -> dict:
     if df is not None:
         checks.extend(verify_dataframe(df))
         metadata = {
-            "path": str(RAW_TRAIN_PATH),
+            "path": _report_path(RAW_TRAIN_PATH),
             "sha256": file_sha256(RAW_TRAIN_PATH),
             "rows": int(len(df)),
             "columns": list(df.columns),

@@ -23,6 +23,21 @@ flowchart LR
     G --> O["Reports and model card"]
 ```
 
+## Design Decisions
+
+- **Chronological validation over random splits.** The data is a daily panel, so random row splits would leak future demand patterns into validation. The pipeline splits by date and uses rolling-origin backtests to check whether performance is stable across future windows.
+- **A small local registry instead of a managed registry.** The repository needs to run on a laptop without cloud credentials. `src/models/registry.py` records candidate metadata, promotion decisions, and the active artifact locally; the same interface could be replaced by MLflow Model Registry or a managed platform later.
+- **Business-input API plus a lower-level scoring endpoint.** `/predict` is the primary path because callers should provide store, item, and date rather than lag columns. `/score-features` remains available for debugging and for integration tests that need direct model scoring.
+- **Permutation importance for the active sklearn model.** The selected model in the current Kaggle run is `hist_gradient_boosting`, so the dashboard uses permutation importance for the deployed artifact. SHAP is still available for compatible tree candidates such as XGBoost.
+- **Generated reports stay small and reviewable.** Metrics, comparisons, drift summaries, and model cards are committed because they document the current run. Raw data, processed feature tables, MLflow runs, and model binaries are ignored because they are large and reproducible.
+- **Sample mode is isolated from real data.** Sample runs write to `data/raw/sample_train.csv`; real-data commands read `data/raw/train.csv`. This keeps CI and smoke tests fast without overwriting the Kaggle file used for reported metrics.
+
+## Known Constraints
+
+- The Kaggle training set has no price, promotion, inventory, or stockout columns. The pipeline supports optional business inputs, but current metrics rely on historical demand and calendar/store/item structure.
+- Drift monitoring is batch artifact-based. It does not schedule jobs, send alerts, or close the loop with observed forecast errors.
+- The Docker image verifies the service packaging, but the local model and feature-store artifacts still need to be produced before serving predictions.
+
 ## Data Contract
 
 The preferred raw dataset format is the Kaggle Store Item Demand Forecasting schema:

@@ -13,6 +13,7 @@ from src.config import (
     DATA_METADATA_PATH,
     DATE_COLUMN,
     GROUP_COLUMNS,
+    PROJECT_ROOT,
     RAW_TEST_PATH,
     RAW_TRAIN_PATH,
     SAMPLE_TRAIN_PATH,
@@ -84,12 +85,16 @@ def _date_range(df: pd.DataFrame) -> dict[str, str | None]:
     return {"min": str(dates.min().date()), "max": str(dates.max().date())}
 
 
+def _report_path(path: Path) -> str:
+    return path.relative_to(PROJECT_ROOT).as_posix() if path.is_relative_to(PROJECT_ROOT) else path.as_posix()
+
+
 def write_dataset_metadata(path: Path = RAW_TRAIN_PATH, metadata_path: Path = DATA_METADATA_PATH) -> dict:
     ensure_directories()
     df = load_raw_sales(path)
     metadata = {
         "source": "kaggle_store_item_demand_or_local_sample",
-        "path": str(path),
+        "path": _report_path(path),
         "sha256": file_sha256(path),
         "rows": int(len(df)),
         "columns": list(df.columns),

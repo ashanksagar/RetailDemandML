@@ -7,9 +7,10 @@ import pandas as pd
 from src.config import (
     DATA_METADATA_PATH,
     MODEL_COMPARISON_PATH,
+    PROJECT_ROOT,
     REPORTS_DIR,
-    VALIDATION_DAYS,
     TEST_DAYS,
+    VALIDATION_DAYS,
     ensure_directories,
 )
 from src.data.ingest import load_raw_sales, write_dataset_metadata
@@ -48,6 +49,11 @@ def summarize_sales(df: pd.DataFrame) -> dict:
 
 
 def write_eda_report(summary: dict, figures: list[Path]) -> None:
+    relative_figures = [
+        path.relative_to(PROJECT_ROOT).as_posix() if path.is_relative_to(PROJECT_ROOT) else path.as_posix()
+        for path in figures
+        if path is not None
+    ]
     lines = [
         "# RetailDemandML EDA Report",
         "",
@@ -74,7 +80,7 @@ def write_eda_report(summary: dict, figures: list[Path]) -> None:
         "## Generated Figures",
         "",
     ]
-    lines.extend(f"- `{path.as_posix()}`" for path in figures if path is not None)
+    lines.extend(f"- `{path}`" for path in relative_figures)
     EDA_REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
