@@ -1,0 +1,31 @@
+data:
+  validation_days: 90
+  test_days: 90
+features:
+  lags: [1, 7, 14, 28, 56]
+  rolling_windows: [7, 14, 28, 56]
+  enable_hierarchical_features: true
+  enable_demand_pattern_features: true
+model:
+  forecast_horizon: 1
+  random_state: 42
+  xgboost:
+    n_estimators: 250
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+backtest:
+  folds: 3
+  horizon_days: 28
+  step_days: 28
+registry:
+  primary_metric: rmse
+  minimum_relative_improvement: 0.0
+  required_backtest_folds: 1
+  max_slice_rmse_regression: 0.10
+monitoring:
+  psi_threshold: 0.20
+  mean_shift_threshold: 2.0
+  missing_rate_shift_threshold: 0.05
+  new_category_rate_threshold: 0.01

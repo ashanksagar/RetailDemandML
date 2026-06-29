@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check src scripts tests
+      - name: Typecheck
+        run: mypy src scripts
+      - name: Test
+        run: pytest
+      - name: Sample pipeline smoke test
+        run: python scripts/run_pipeline.py --sample --config configs/sample.yaml
+      - name: Drift monitor smoke test
+        run: python -m src.monitoring.drift --config configs/sample.yaml
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t retail-demand-ml-api:test .

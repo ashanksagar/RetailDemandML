@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    image: retail-demand-ml-api:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./reports:/app/reports
+    environment:
+      - MODEL_PATH=/app/models/registry/production/production_model.joblib
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

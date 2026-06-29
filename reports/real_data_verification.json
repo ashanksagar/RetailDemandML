@@ -1,0 +1,66 @@
+{
+  "status": "verified_real_kaggle_data",
+  "passed": true,
+  "likely_sample_data": false,
+  "metadata": {
+    "path": "C:\\Users\\dogem\\RetailDemandML\\data\\raw\\train.csv",
+    "sha256": "038f25690a65149c94f86ddd3deceda20c037a5cfd754cafdfc539a72992f2ed",
+    "rows": 913000,
+    "columns": [
+      "date",
+      "store",
+      "item",
+      "sales"
+    ]
+  },
+  "checks": [
+    {
+      "name": "kaggle_cli",
+      "passed": true,
+      "detail": "C:\\Users\\dogem\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\kaggle.EXE"
+    },
+    {
+      "name": "kaggle_credentials",
+      "passed": true,
+      "detail": "Credential source(s) present: access_token."
+    },
+    {
+      "name": "train_csv_present",
+      "passed": true,
+      "detail": "Found C:\\Users\\dogem\\RetailDemandML\\data\\raw\\train.csv."
+    },
+    {
+      "name": "required_columns",
+      "passed": true,
+      "detail": "All required columns present."
+    },
+    {
+      "name": "real_dataset_row_count",
+      "passed": true,
+      "detail": "Rows=913,000; expected at least 900,000 for Kaggle train.csv."
+    },
+    {
+      "name": "store_count",
+      "passed": true,
+      "detail": "Stores=10; expected 10."
+    },
+    {
+      "name": "item_count",
+      "passed": true,
+      "detail": "Items=50; expected 50."
+    },
+    {
+      "name": "date_range",
+      "passed": true,
+      "detail": "Date range=2013-01-01 to 2017-12-31; expected 2013-01-01 to 2017-12-31."
+    },
+    {
+      "name": "non_negative_sales",
+      "passed": true,
+      "detail": "Sales are non-negative."
+    }
+  ],
+  "next_steps": [
+    "Run `python scripts/run_pipeline.py --config configs/default.yaml` and update README metrics."
+  ]
+}

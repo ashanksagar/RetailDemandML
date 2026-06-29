@@ -1,0 +1,12 @@
+{
+  "rows": 35040,
+  "date_min": "2021-01-01",
+  "date_max": "2022-12-31",
+  "store_count": 4,
+  "item_count": 12,
+  "mean_sales": 71.34583333333333,
+  "median_sales": 71.0,
+  "zero_sales_rate": 0.0,
+  "duplicate_key_count": 0,
+  "missing_value_count": 0
+}

@@ -1,0 +1,206 @@
+{
+  "status": "warning",
+  "finding_count": 25,
+  "findings": [
+    {
+      "feature": "item_day_of_week_historical_mean",
+      "kind": "psi",
+      "value": 0.28922360108690987,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "item_historical_mean",
+      "kind": "psi",
+      "value": 2.6902891927357686,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "item_month_historical_mean",
+      "kind": "psi",
+      "value": 0.44912948022125787,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales",
+      "kind": "psi",
+      "value": 0.3664948509978237,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_cv_28",
+      "kind": "psi",
+      "value": 0.43208102639635615,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_lag_1",
+      "kind": "psi",
+      "value": 0.3663787556300975,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_lag_14",
+      "kind": "psi",
+      "value": 0.36800962831263556,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_lag_28",
+      "kind": "psi",
+      "value": 0.36852938818162906,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_lag_56",
+      "kind": "psi",
+      "value": 0.3661095335079505,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_lag_7",
+      "kind": "psi",
+      "value": 0.36727910047888307,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_max_28",
+      "kind": "psi",
+      "value": 1.2684656084238708,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_max_7",
+      "kind": "psi",
+      "value": 0.5822192959582239,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_mean_14",
+      "kind": "psi",
+      "value": 0.815452222092061,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_mean_28",
+      "kind": "psi",
+      "value": 1.4686469220367164,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_mean_56",
+      "kind": "psi",
+      "value": 1.4857299077159196,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_mean_7",
+      "kind": "psi",
+      "value": 0.738718836450756,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_median_28",
+      "kind": "psi",
+      "value": 0.8117955166317126,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_median_7",
+      "kind": "psi",
+      "value": 0.625598544020273,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_min_28",
+      "kind": "psi",
+      "value": 0.5570921328606862,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_rolling_min_7",
+      "kind": "psi",
+      "value": 0.5742050843392577,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "sales_same_weekday_4wk_mean",
+      "kind": "psi",
+      "value": 0.41396869557252725,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "store_day_of_week_historical_mean",
+      "kind": "psi",
+      "value": 6.3374362901632555,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "store_historical_mean",
+      "kind": "psi",
+      "value": 12.433016099480776,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "store_item_historical_mean",
+      "kind": "psi",
+      "value": 3.837036639013366,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    },
+    {
+      "feature": "store_month_historical_mean",
+      "kind": "psi",
+      "value": 5.449016636989486,
+      "threshold": 0.2,
+      "severity": "warning",
+      "description": "Numeric distribution shifted by PSI threshold."
+    }
+  ]
+}
