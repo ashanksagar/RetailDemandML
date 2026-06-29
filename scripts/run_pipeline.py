@@ -16,6 +16,8 @@ from src.config import (
     METRICS_PATH,
     MLFLOW_EXPERIMENT,
     PREDICTIONS_PATH,
+    RAW_TRAIN_PATH,
+    SAMPLE_TRAIN_PATH,
     TEST_DAYS,
     VALIDATION_DAYS,
     ensure_directories,
@@ -44,10 +46,11 @@ def prepare_datasets(
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     ensure_directories()
     config = config or load_project_config()
+    raw_path = SAMPLE_TRAIN_PATH if sample else RAW_TRAIN_PATH
     if sample:
-        generate_sample_data()
-    write_dataset_metadata()
-    raw = load_raw_sales()
+        raw_path = generate_sample_data()
+    write_dataset_metadata(raw_path)
+    raw = load_raw_sales(raw_path)
     clean = normalize_schema(raw)
     validate_sales_data(clean, require_daily_continuity=True).raise_for_errors()
     clean.to_csv(CLEAN_PATH, index=False)
@@ -177,7 +180,11 @@ def run_pipeline(sample: bool = False, config_path: Path | None = None) -> dict[
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--sample", action="store_true", help="Generate sample data before training")
+    parser.add_argument(
+        "--sample",
+        action="store_true",
+        help=f"Train on generated sample data at {SAMPLE_TRAIN_PATH}; real-data runs use data/raw/train.csv.",
+    )
     parser.add_argument("--config", type=Path, default=None)
     args = parser.parse_args()
     metrics = run_pipeline(sample=args.sample, config_path=args.config)

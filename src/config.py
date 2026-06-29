@@ -13,6 +13,7 @@ MODELS_DIR = PROJECT_ROOT / "models"
 CONFIGS_DIR = PROJECT_ROOT / "configs"
 
 RAW_TRAIN_PATH = RAW_DATA_DIR / "train.csv"
+SAMPLE_TRAIN_PATH = RAW_DATA_DIR / "sample_train.csv"
 RAW_TEST_PATH = RAW_DATA_DIR / "test.csv"
 CLEAN_PATH = PROCESSED_DATA_DIR / "clean_sales.csv"
 FEATURES_PATH = PROCESSED_DATA_DIR / "features.csv"

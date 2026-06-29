@@ -1,4 +1,4 @@
-.PHONY: setup data data-metadata verify-real-data sample-data eda features-doc feature-importance drift train evaluate backtest predict-batch register promote registry serve test lint typecheck ci tune explain clean
+.PHONY: setup data data-metadata verify-real-data sample-data eda features-doc feature-importance drift train train-sample evaluate backtest backtest-sample predict-batch register promote registry serve test lint typecheck ci tune tune-sample explain clean
 
 setup:
 	python -m pip install --upgrade pip
@@ -29,12 +29,18 @@ drift:
 	python -m src.monitoring.drift
 
 train:
+	python scripts/run_pipeline.py --config configs/default.yaml
+
+train-sample:
 	python scripts/run_pipeline.py --sample
 
 evaluate:
 	python -m src.models.evaluate --predictions data/processed/predictions.csv
 
 backtest:
+	python -m src.validation.backtest --config configs/default.yaml
+
+backtest-sample:
 	python -m src.validation.backtest --sample
 
 predict-batch:
@@ -64,6 +70,9 @@ typecheck:
 ci: lint typecheck test
 
 tune:
+	python -m src.models.tune --n-trials 20
+
+tune-sample:
 	python -m src.models.tune --n-trials 20 --sample
 
 explain:

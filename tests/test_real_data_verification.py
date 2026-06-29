@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.data import verify_real_dataset
+from src.data.ingest import generate_sample_data
 from src.data.verify_real_dataset import _check_credentials, verify_dataframe
 
 
@@ -45,3 +46,27 @@ def test_access_token_file_counts_as_credentials(tmp_path, monkeypatch):
 
     assert check.passed
     assert "access_token" in check.detail
+
+
+def test_sample_generation_refuses_to_overwrite_existing_train_csv(tmp_path):
+    train_path = tmp_path / "train.csv"
+    train_path.write_text("date,store,item,sales\n2013-01-01,1,1,10\n", encoding="utf-8")
+
+    try:
+        generate_sample_data(path=train_path)
+    except FileExistsError as exc:
+        assert "Refusing to overwrite canonical Kaggle data" in str(exc)
+    else:
+        raise AssertionError("sample generation should not overwrite existing train.csv")
+
+    assert train_path.read_text(encoding="utf-8") == "date,store,item,sales\n2013-01-01,1,1,10\n"
+
+
+def test_sample_generation_uses_explicit_sample_file(tmp_path):
+    sample_path = tmp_path / "sample_train.csv"
+
+    path = generate_sample_data(path=sample_path, days=3, stores=1, items=1)
+
+    assert path == sample_path
+    assert sample_path.exists()
+    assert len(pd.read_csv(sample_path)) == 3

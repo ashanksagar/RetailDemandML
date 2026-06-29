@@ -65,6 +65,8 @@ The project also supports local sample data:
 make sample-data
 ```
 
+Sample data is written to `data/raw/sample_train.csv` so it cannot overwrite the canonical Kaggle file at `data/raw/train.csv`.
+
 If the Kaggle CLI is configured, start a download with:
 
 ```bash
@@ -86,18 +88,21 @@ make setup         # install package and dev tooling
 make data          # download and unzip Kaggle data when Kaggle CLI is configured
 make data-metadata # write dataset hash and profile metadata
 make verify-real-data # verify raw train.csv is the full Kaggle dataset
-make sample-data   # generate reproducible local sample data
+make sample-data   # generate reproducible local sample data at data/raw/sample_train.csv
 make eda           # generate EDA report and visualization artifacts
 make features-doc  # write feature dictionary
 make drift         # generate drift report from feature data
-make train         # train, compare, backtest, select, and report
+make train         # train, compare, backtest, select, and report on real Kaggle data
+make train-sample  # smoke-test the pipeline on generated sample data
 make evaluate      # evaluate saved predictions
-make backtest      # run rolling-origin backtest
+make backtest      # run rolling-origin backtest on real Kaggle data
+make backtest-sample # run rolling-origin backtest on generated sample data
 make predict-batch # forecast the next 28 days for every store/item
 make register      # register current production artifact as a candidate
 make promote       # promote candidate if it beats champion rules
 make registry      # show active registry status
-make tune          # run Optuna search for XGBoost
+make tune          # run Optuna search for XGBoost on real Kaggle data
+make tune-sample   # run Optuna search on generated sample data
 make explain       # create SHAP summary plot
 make serve         # start FastAPI service
 make lint          # ruff

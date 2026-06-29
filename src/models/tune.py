@@ -6,8 +6,8 @@ from scripts.run_pipeline import prepare_datasets
 from src.models.train_xgboost import train_xgboost
 
 
-def objective(trial: optuna.Trial) -> float:
-    train, validation, _test = prepare_datasets(sample=False)
+def objective(trial: optuna.Trial, sample: bool = False) -> float:
+    train, validation, _test = prepare_datasets(sample=sample)
     params = {
         "n_estimators": trial.suggest_int("n_estimators", 100, 500),
         "max_depth": trial.suggest_int("max_depth", 3, 9),
@@ -24,12 +24,8 @@ def main() -> None:
     parser.add_argument("--n-trials", type=int, default=20)
     parser.add_argument("--sample", action="store_true", help="Generate sample data first if raw data is missing")
     args = parser.parse_args()
-    if args.sample:
-        from src.data.ingest import generate_sample_data
-
-        generate_sample_data()
     study = optuna.create_study(direction="minimize", study_name="retail-demand-xgboost")
-    study.optimize(objective, n_trials=args.n_trials)
+    study.optimize(lambda trial: objective(trial, sample=args.sample), n_trials=args.n_trials)
     print(f"Best RMSE: {study.best_value:.4f}")
     print(study.best_params)
 

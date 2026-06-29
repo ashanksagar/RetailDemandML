@@ -9,12 +9,32 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.config import DATA_METADATA_PATH, DATE_COLUMN, GROUP_COLUMNS, RAW_TEST_PATH, RAW_TRAIN_PATH, TARGET, ensure_directories
+from src.config import (
+    DATA_METADATA_PATH,
+    DATE_COLUMN,
+    GROUP_COLUMNS,
+    RAW_TEST_PATH,
+    RAW_TRAIN_PATH,
+    SAMPLE_TRAIN_PATH,
+    TARGET,
+    ensure_directories,
+)
 
 
-def generate_sample_data(path: Path = RAW_TRAIN_PATH, days: int = 730, stores: int = 4, items: int = 12) -> Path:
+def generate_sample_data(
+    path: Path = SAMPLE_TRAIN_PATH,
+    days: int = 730,
+    stores: int = 4,
+    items: int = 12,
+    force: bool = False,
+) -> Path:
     """Generate a compact retail-like daily sales dataset for local development."""
     ensure_directories()
+    if path.name == RAW_TRAIN_PATH.name and path.exists() and not force:
+        raise FileExistsError(
+            f"Refusing to overwrite canonical Kaggle data at {path}. "
+            f"Write sample data to {SAMPLE_TRAIN_PATH} or pass force=True intentionally."
+        )
     rng = np.random.default_rng(42)
     dates = pd.date_range("2021-01-01", periods=days, freq="D")
     rows: list[dict[str, object]] = []
@@ -141,6 +161,17 @@ def download_from_kaggle(destination: Path = RAW_TRAIN_PATH, unzip: bool = False
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sample", action="store_true", help="Generate local sample data")
+    parser.add_argument(
+        "--sample-output",
+        type=Path,
+        default=SAMPLE_TRAIN_PATH,
+        help=f"Sample output path. Defaults to {SAMPLE_TRAIN_PATH}.",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Allow sample generation to overwrite an existing output, including train.csv.",
+    )
     parser.add_argument("--kaggle", action="store_true", help="Download via configured Kaggle CLI")
     parser.add_argument("--unzip", action="store_true", help="Unzip train.csv/test.csv from Kaggle archive")
     parser.add_argument("--metadata", action="store_true", help="Write dataset metadata report")
@@ -154,7 +185,7 @@ def main() -> None:
         write_dataset_metadata()
         print(f"Extracted: {', '.join(str(path) for path in paths)}")
     elif args.sample:
-        path = generate_sample_data()
+        path = generate_sample_data(path=args.sample_output, force=args.force)
         write_dataset_metadata(path)
         print(f"Generated sample data at {path}")
     elif args.metadata:

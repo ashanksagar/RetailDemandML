@@ -3,7 +3,15 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.config import BACKTEST_PATH, DATE_COLUMN, TARGET, ensure_directories, load_project_config
+from src.config import (
+    BACKTEST_PATH,
+    DATE_COLUMN,
+    RAW_TRAIN_PATH,
+    SAMPLE_TRAIN_PATH,
+    TARGET,
+    ensure_directories,
+    load_project_config,
+)
 from src.data.ingest import generate_sample_data, load_raw_sales
 from src.data.preprocess import chronological_split, normalize_schema
 from src.features.build_features import build_features
@@ -67,10 +75,11 @@ def main() -> None:
     parser.add_argument("--sample", action="store_true")
     parser.add_argument("--config", type=Path, default=None)
     args = parser.parse_args()
+    raw_path = SAMPLE_TRAIN_PATH if args.sample else RAW_TRAIN_PATH
     if args.sample:
-        generate_sample_data()
+        raw_path = generate_sample_data()
     config = load_project_config(args.config)
-    raw = load_raw_sales()
+    raw = load_raw_sales(raw_path)
     clean = normalize_schema(raw)
     features = build_features(clean)
     train, validation, test = chronological_split(
