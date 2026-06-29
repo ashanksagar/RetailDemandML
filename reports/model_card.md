@@ -3,7 +3,7 @@
 ## Intended Use
 
 Forecast daily retail item demand by store and item for demand planning, inventory analysis, and
-portfolio demonstration. It is not intended for automated replenishment without human review,
+forecasting workflow evaluation. It is not intended for automated replenishment without human review,
 promotion data, price data, and production monitoring.
 
 ## Data Windows

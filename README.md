@@ -247,7 +247,7 @@ mlruns/
 
 - The public Kaggle dataset does not include real price, promotion, stockout, or inventory signals. Retail demand is strongly affected by those drivers, so the current model relies on historical demand, calendar effects, holidays, and store/item hierarchy features instead.
 - Optional columns for `price`, `promotion_flag`, `stockout_flag`, and `inventory_on_hand` are supported by the feature pipeline, but they are placeholders unless an external business data source is added.
-- The local model registry is intentionally lightweight for a portfolio project; it demonstrates champion/challenger behavior but is not a managed production registry service.
+- The local model registry is intentionally lightweight; it provides champion/challenger behavior but is not a managed production registry service.
 - Drift monitoring is batch artifact-based. It does not yet include scheduled alert routing or a live prediction/error feedback loop.
 
 ## Docker
@@ -258,9 +258,9 @@ docker compose up --build
 
 The API image runs as a non-root user, includes a container healthcheck, and expects trained artifacts mounted from `models/`, `data/`, and `reports/`.
 
-## Resume Bullets
+## Project Highlights
 
 - Built a production-style retail demand forecasting platform with data validation, leakage-aware features, rolling backtests, model comparison, MLflow tracking, model selection, and API/batch inference.
 - Designed a training-serving feature-state artifact so online predictions accept business inputs while preserving feature parity with the batch pipeline.
 - Implemented baseline, linear, tree ensemble, and XGBoost candidates with chronological validation, sliced metrics, residual prediction intervals, and model-card reporting.
-- Added Docker, FastAPI, Pydantic schemas, CI, linting, type checking, and pytest coverage to demonstrate senior ML engineering practices.
+- Added Docker, FastAPI, Pydantic schemas, CI, linting, type checking, and pytest coverage.
